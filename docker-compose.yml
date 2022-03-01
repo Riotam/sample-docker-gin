@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app:
+    container_name: "app"
+    volumes:
+      - ./:/code
+    tty: true
+    working_dir: /code
+#    command: /bin/bash
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
