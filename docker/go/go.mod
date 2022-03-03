@@ -1,4 +1,4 @@
-module github.com/Riotam/sample-docker-gin
+module sample-docker-gin
 
 go 1.17
 

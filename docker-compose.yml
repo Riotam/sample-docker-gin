@@ -3,7 +3,7 @@ services:
   app:
     container_name: "app"
     volumes:
-      - ./docker/go/cmd/app:/app
+      - ./docker/go:/app
     tty: true
     working_dir: /app
     build:

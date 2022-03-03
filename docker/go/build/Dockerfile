@@ -1,11 +1,11 @@
 FROM golang:1.17
 
+ENV GO111MODULE="on"
 COPY docker/go/go.mod /go.mod
 COPY docker/go/go.sum /go.sum
-WORKDIR /app
-RUN ls
 RUN go mod download
 
-COPY ../../.. /app
+RUN #mkdir /app
+WORKDIR /app
 
-CMD go run main.go
+CMD go run cmd/app/main.go
