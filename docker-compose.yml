@@ -3,12 +3,12 @@ services:
   app:
     container_name: "app"
     volumes:
-      - ./docker/go/app:/app
+      - ./docker/go/cmd/app:/app
     tty: true
     working_dir: /app
     build:
       context: .
-      dockerfile: docker/go/Dockerfile
+      dockerfile: docker/go/build/Dockerfile
     ports:
       - 3000:3000
   db:

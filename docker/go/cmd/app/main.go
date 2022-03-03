@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
+	//_ "github.com/go-sql-driver/mysql"
+	//"github.com/jinzhu/gorm"
 	"net/http"
+	"github.com/Riotam/sample-docker-gin/mysql"
 )
 
 type TableSample struct {
@@ -13,26 +14,26 @@ type TableSample struct {
 	Name string `gorm:"column:name"`
 }
 
-func gormConnect() *gorm.DB {
-	DBMS := "mysql"
-	USER := "docker"
-	PASS := "docker"
-	PROTOCOL := "tcp(db:3306)"
-	DBNAME := "sample"
-
-	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
-	db, err := gorm.Open(DBMS, CONNECT)
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return db
-}
+//func GormConnect() *gorm.DB {
+//	DBMS := "mysql"
+//	USER := "docker"
+//	PASS := "docker"
+//	PROTOCOL := "tcp(db:3306)"
+//	DBNAME := "sample"
+//
+//	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+//	db, err := gorm.Open(DBMS, CONNECT)
+//	if err != nil {
+//		panic(err.Error())
+//	}
+//
+//	return db
+//}
 
 func main() {
 
 	// MySQLとの接続
-	db := gormConnect()
+	db := mysql.GormConnect()
 	defer db.Close()
 
 	engine := gin.Default()
