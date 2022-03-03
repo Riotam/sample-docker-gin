@@ -6,7 +6,7 @@ import (
 	//_ "github.com/go-sql-driver/mysql"
 	//"github.com/jinzhu/gorm"
 	"net/http"
-	"github.com/Riotam/sample-docker-gin/mysql"
+	"github.com/Riotam/sample-docker-gin/cmd/app/mysql"
 )
 
 type TableSample struct {
