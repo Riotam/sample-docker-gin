@@ -1,4 +1,4 @@
-package mysql
+package infra
 
 import (
 	_ "github.com/go-sql-driver/mysql"

@@ -5,7 +5,7 @@ COPY docker/go/go.mod /go.mod
 COPY docker/go/go.sum /go.sum
 RUN go mod download
 
-RUN #mkdir /app
+RUN mkdir /app
 WORKDIR /app
 
-CMD go run cmd/app/main.go
+CMD go run cmd/main.go
