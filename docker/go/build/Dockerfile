@@ -2,8 +2,7 @@ FROM golang:1.17 as dev
 
 WORKDIR /app
 
-COPY ./docker/go/go.mod ./
-COPY ./docker/go/go.sum ./
+COPY ./docker/go/  ./
 
 RUN go mod download
 
@@ -13,12 +12,9 @@ FROM golang:1.17 as builder
 
 WORKDIR /app
 
-COPY ./docker/go/go.mod ./
-COPY ./docker/go/go.sum ./
+COPY ./docker/go/  ./
 
 RUN go mod download
-
-COPY ./docker/go/  ./
 
 ARG CGO_ENABLED=0
 ARG GOOS=linux
