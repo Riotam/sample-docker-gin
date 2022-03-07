@@ -9,6 +9,7 @@ services:
     build:
       context: .
       dockerfile: docker/go/build/Dockerfile
+      target: dev
     ports:
       - 3000:3000
   db:
