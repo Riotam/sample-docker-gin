@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"sample-docker-gin/internal/infra"
+	//"sample-docker-gin/internal/infra"
 )
 
 // Start starts api server
