@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sample-docker-gin/internal/handler"
 )
 
 // DefineRoutes ルートの設定
@@ -22,11 +23,5 @@ func defineRoutes(r gin.IRouter) {
 	})
 
 	// sample
-	r.GET("/sample", func(c *gin.Context) {
-		type res struct {
-			Status string `json:"status"`
-		}
-		r := &res{Status: "OK"}
-		c.JSON(http.StatusOK, r)
-	})
+	r.GET("/sample", handler.Sample)
 }

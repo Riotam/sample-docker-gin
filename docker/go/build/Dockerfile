@@ -17,6 +17,7 @@ WORKDIR /app
 COPY ./docker/go/  ./
 
 RUN go mod download
+RUN go test ./test/...
 
 ARG CGO_ENABLED=0
 ARG GOOS=linux

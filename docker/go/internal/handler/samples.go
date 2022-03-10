@@ -1,22 +1,14 @@
 package handler
 
-// GetOneSample は災害通知単体情報を取得します
-func GetOneNotification(c *gin.Context) {
-	//serviceMaker := c.MustGet(registry.ServiceKey).(registry.ServiceMaker)
-	//notificationsService := serviceMaker.NewNotifications()
-	//
-	//cond := &model.NotificationSearchCondition{}
-	//err := c.ShouldBindQuery(cond)
-	//if err != nil {
-	//	c.AbortWithStatusJSON(http.StatusBadRequest, err)
-	//	return
-	//}
-	//
-	//output, err := notificationsService.GetOne(cond)
-	//if err != nil {
-	//	c.AbortWithStatusJSON(http.StatusBadRequest, model.NewErrorResponse(err))
-	//	return
-	//}
-	//
-	//c.JSON(http.StatusOK, output)
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"sample-docker-gin/internal/util"
+)
+
+// Sample はスケルトンコード
+func Sample(c *gin.Context) {
+	res := util.Sample(1, 2)
+
+	c.JSON(http.StatusOK, res)
 }
