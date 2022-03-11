@@ -6,11 +6,6 @@ import (
 	"sample-docker-gin/internal/server"
 )
 
-type TableSample struct {
-	Id   int    `gorm:"column:id"`
-	Name string `gorm:"column:name"`
-}
-
 func main() {
 
 	err := server.Start()

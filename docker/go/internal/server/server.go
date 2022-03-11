@@ -8,7 +8,7 @@ import (
 // Start starts api server
 func Start() error {
 
-	// TODO: ここじゃないかも？
+	// TODO: db関連の処理を切り分けた方が良さそう
 	// db engine 初期化
 	//db := infra.GormConnect()
 	//defer db.Close()

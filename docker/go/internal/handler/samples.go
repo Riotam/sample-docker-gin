@@ -10,6 +10,7 @@ import (
 // Sample はスケルトンコード
 func Sample(c *gin.Context) {
 
+	// TODO: 冗長なので構造体で定義するものにしたい
 	aStr := c.Query("a")
 	bStr := c.Query("b")
 

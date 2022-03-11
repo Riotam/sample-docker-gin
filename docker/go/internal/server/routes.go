@@ -8,10 +8,6 @@ import (
 
 // DefineRoutes ルートの設定
 func DefineRoutes(r gin.IRouter) {
-	defineRoutes(r)
-}
-
-func defineRoutes(r gin.IRouter) {
 
 	// Health Check
 	r.GET("/health", func(c *gin.Context) {
