@@ -7,7 +7,7 @@ import (
 
 func TestSamples_Sample(t *testing.T) {
 	actual := util.Sample(1, 2)
-	expected := "from util.Sample! with 3"
+	expected := "Hi! from util.Sample! with 3"
 	if actual != expected {
 		t.Errorf("got %v\nwant %v", actual, expected)
 	}
