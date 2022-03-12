@@ -1,33 +1,39 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@1.0.0
+  aws-ecr: circleci/aws-ecr@7.3.0
+
+executors:
+  go:
+    docker:
+      - image: cimg/go:1.17.8
 
 workflows:
   build-and-deploy:
     jobs:
       - tests
-      - aws-ecr/build_and_push_image:
-          requires:
-            - tests
-          account-url: AWS_ECR_ACCOUNT_URL
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          create-repo: true
-          # Name of dockerfile to use. Defaults to Dockerfile.
-          dockerfile: Dockerfile
-          # AWS_REGION_ENV_VAR_NAME
-          region: AWS_DEFAULT_REGION
-          repo: 'sample-docker-gin'
-          tag: '$CIRCLE_SHA1'
+      - ecr-build-and-push-image
+#      - aws-ecr/build_and_push_image:
+#          requires:
+#            - tests
+#          account-url: AWS_ECR_ACCOUNT_URL
+#          aws-access-key-id: AWS_ACCESS_KEY_ID
+#          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+##          create-repo: true
+#          # Name of dockerfile to use. Defaults to Dockerfile.
+#          dockerfile: Dockerfile
+#          # AWS_REGION_ENV_VAR_NAME
+#          region: AWS_DEFAULT_REGION
+#          repo: 'sample-docker-gin'
+#          tag: '$CIRCLE_SHA1'
 #  tests:
 #    jobs:
 #      - tests
 
 jobs:
   tests:
-    docker:
-      - image: cimg/go:1.17.8
+    executor:
+      name: go
     steps:
       - checkout
       - run:
@@ -40,3 +46,16 @@ jobs:
           command: |
             cd ./docker/go/
             go test ./test/...
+  ecr-build-and-push-image:
+    executor:
+      name: go
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          tag: "${CIRCLE_SHA1},latest"
+          path: docker/go/build
+          repo: "sample-docker-gin"
+          region: AWS_DEFAULT_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          extra-build-args: "--target prod"
