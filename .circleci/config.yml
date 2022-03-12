@@ -1,25 +1,14 @@
-# circleciのバージョン。後述するorbsを利用するためには2.1以上が必要
 version: 2.1
 
-orbs:
-  # circleci/aws-ecr@6.1.0というorbをaws-ecrというaliasをつけて扱う
-  aws-ecr: circleci/aws-ecr@6.1.0
-  aws-ecs: circleci/aws-ecs@0.0.8
-
 workflows:
-  # build_and_push_imageという名前のworkflowを定義
-  build_and_push_image:
-    # workflowで実行するjobの順番を定義
+  test-deploy:
     jobs:
-      - aws-ecr/build-and-push-image:
-          region: AWS_REGION
-          account-url: AWS_ECR_ACCOUNT_URL
-          repo: 'sample-docker-gin'
-          tag: $CIRCLE_SHA1
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          family: 'sample-docker-gin-task-def100'
-          cluster-name: 'sample-docker-gin-cluster10'
-          service-name: 'sample-docker-gin-service100'
-          container-image-name-updates: 'container=sample-docker-gin_app100,tag=${CIRCLE_SHA1}'
+      - test
+
+jobs:
+  test:
+    docker:
+      - image: cimg/go:1.17.8
+    steps:
+      - checkout
+      - run: go version
