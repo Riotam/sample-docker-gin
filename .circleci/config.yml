@@ -4,15 +4,18 @@ orbs:
   aws-ecr: circleci/aws-ecr@1.0.0
 
 workflows:
-  build-and-deploy:
+#  build-and-deploy:
+#    jobs:
+#      - tests
+#      - aws-ecr/build_and_push_image:
+#          requires:
+#            - tests
+#          account-url: AWS_ECR_ACCOUNT_URL
+#          repo: 'sample-docker-gin'
+#          tag: '${CIRCLE_SHA1}'
+  tests:
     jobs:
       - tests
-      - aws-ecr/build_and_push_image:
-          requires:
-            - tests
-          account-url: AWS_ECR_ACCOUNT_URL
-          repo: 'sample-docker-gin'
-          tag: '${CIRCLE_SHA1}'
 
 jobs:
   tests:
