@@ -8,7 +8,9 @@ workflows:
     jobs:
       - tests
       - aws-ecr/build_and_push_image:
-          account-url: $AWS_ECR_ACCOUNT_URL
+          requires:
+            - tests
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: 'sample-docker-gin'
           tag: '${CIRCLE_SHA1}'
 
