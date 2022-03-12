@@ -18,5 +18,7 @@ jobs:
             go mod download
       - run:
           name: Run Tests
-          command: go test ./docker/go/test/...
+          command: |
+            cd ./docker/go/
+            go test ./test/...
       - run: go version
