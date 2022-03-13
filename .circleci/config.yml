@@ -20,7 +20,7 @@ workflows:
           aws-region: AWS_REGION
           family: 'sample-docker-gin-service100'
           cluster-name: 'sample-docker-gin-cluster10'
-          container-image-name-updates: 'container=sample-docker-gin-service100,tag=${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=sample-docker-gin-service100,tag=${CIRCLE_SHA1},latest'
 
 jobs:
   tests:
@@ -52,10 +52,10 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           extra-build-args: "--target prod"
-  ecs-deploy-service-update:
-    executor:
-      name: go
-    steps:
-      - aws-ecs/deploy-service-update:
-          repo: "sample-docker-gin"
-          tag: "${CIRCLE_SHA1},latest"
+#  ecs-deploy-service-update:
+#    executor:
+#      name: go
+#    steps:
+#      - aws-ecs/deploy-service-update:
+#          repo: "sample-docker-gin"
+#          tag: "${CIRCLE_SHA1},latest"
