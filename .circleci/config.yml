@@ -18,7 +18,7 @@ workflows:
           requires:
             - ecr-build-and-push-image
           aws-region: AWS_REGION
-          family: 'sample-docker-gin-def100'
+          family: 'sample-docker-gin-service'
           service-name: 'sample-docker-gin-service'
           cluster-name: 'sample-docker-gin-cluster10'
 #          container-image-name-updates: 'container=sample-docker-gin-service100,tag=${CIRCLE_SHA1},latest'
