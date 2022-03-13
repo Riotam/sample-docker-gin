@@ -6,6 +6,8 @@ COPY . .
 
 RUN go mod download
 
+# TODO: ホットリロードで実行したい
+
 CMD ["go", "run", "main.go"]
 
 FROM golang:1.17 as builder
