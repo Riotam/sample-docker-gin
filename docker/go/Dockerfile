@@ -2,8 +2,7 @@ FROM golang:1.17 as dev
 
 WORKDIR /app
 
-# TODO: 追々dockerignoreして最適化したい
-COPY ./docker/go/  ./
+COPY . .
 
 RUN go mod download
 
@@ -13,7 +12,7 @@ FROM golang:1.17 as builder
 
 WORKDIR /app
 
-COPY ./ ./
+COPY . .
 
 RUN go mod download
 
