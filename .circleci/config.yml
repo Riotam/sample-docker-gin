@@ -51,6 +51,7 @@ jobs:
       name: go
     steps:
       - checkout
+      - setup_remote_docker
       - aws-ecr/build-and-push-image:
           tag: "${CIRCLE_SHA1},latest"
           path: docker/go/build
