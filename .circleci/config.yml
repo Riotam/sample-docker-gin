@@ -38,14 +38,10 @@ jobs:
       - checkout
       - run:
           name: Install dependency
-          command: |
-            cd ./docker/go/
-            go mod download
+          command: go mod download
       - run:
           name: Run Tests
-          command: |
-            cd ./docker/go/
-            go test ./test/...
+          command: go test ./test/...
   ecr-build-and-push-image:
     executor:
       name: go
@@ -54,7 +50,7 @@ jobs:
       - setup_remote_docker
       - aws-ecr/build-and-push-image:
           tag: "${CIRCLE_SHA1},latest"
-          path: docker/go/build
+          path: docker/go
           repo: "sample-docker-gin"
           region: AWS_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID

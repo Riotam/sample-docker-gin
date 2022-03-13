@@ -8,8 +8,8 @@ services:
     working_dir: /app
     build:
       context: .
-      dockerfile: docker/go/build/Dockerfile
-      target: dev
+      dockerfile: docker/go/Dockerfile
+      target: prod
     ports:
       - 3000:3000
   db:
