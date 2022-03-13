@@ -12,21 +12,7 @@ executors:
 workflows:
   build-and-deploy:
     jobs:
-      - tests:
-          executor:
-            name: go
-          steps:
-            - checkout
-            - run:
-                name: Install dependency
-                command: |
-                  cd ./docker/go/
-                  go mod download
-            - run:
-                name: Run Tests
-                command: |
-                  cd ./docker/go/
-                  go test ./test/...
+      - tests
       - ecr-build-and-push-image
       - aws-ecs/deploy-service-update:
           requires:
@@ -38,21 +24,21 @@ workflows:
           container-image-name-updates: 'container=sample-docker-gin-service100,tag=${CIRCLE_SHA1},latest'
 
 jobs:
-#  tests:
-#    executor:
-#      name: go
-#    steps:
-#      - checkout
-#      - run:
-#          name: Install dependency
-#          command: |
-#            cd ./docker/go/
-#            go mod download
-#      - run:
-#          name: Run Tests
-#          command: |
-#            cd ./docker/go/
-#            go test ./test/...
+  tests:
+    executor:
+      name: go
+    steps:
+      - checkout
+      - run:
+          name: Install dependency
+          command: |
+            cd ./docker/go/
+            go mod download
+      - run:
+          name: Run Tests
+          command: |
+            cd ./docker/go/
+            go test ./test/...
   ecr-build-and-push-image:
     executor:
       name: go
