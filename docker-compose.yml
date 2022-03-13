@@ -7,9 +7,9 @@ services:
     tty: true
     working_dir: /app
     build:
-      context: .
-      dockerfile: docker/go/Dockerfile
-      target: prod
+      context: docker/go
+      dockerfile: Dockerfile
+      target: dev
     ports:
       - 3000:3000
   db:

@@ -13,7 +13,7 @@ FROM golang:1.17 as builder
 
 WORKDIR /app
 
-COPY ./docker/go/  ./
+COPY ./ ./
 
 RUN go mod download
 

@@ -38,10 +38,14 @@ jobs:
       - checkout
       - run:
           name: Install dependency
-          command: go mod download
+          command: |
+            cd ./docker/go/
+            go mod download
       - run:
           name: Run Tests
-          command: go test ./test/...
+          command: |
+            cd ./docker/go/
+            go test ./test/...
   ecr-build-and-push-image:
     executor:
       name: go
