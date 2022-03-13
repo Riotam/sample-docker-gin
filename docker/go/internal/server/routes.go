@@ -14,7 +14,7 @@ func DefineRoutes(r gin.IRouter) {
 		type res struct {
 			Status string `json:"status"`
 		}
-		r := &res{Status: "OK"}
+		r := &res{Status: "OK!!"}
 		c.JSON(http.StatusOK, r)
 	})
 

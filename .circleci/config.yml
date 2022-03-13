@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@7.3.0
+  aws-ecs: circleci/aws-ecs@2.2.1
 
 executors:
   go:
@@ -13,22 +14,13 @@ workflows:
     jobs:
       - tests
       - ecr-build-and-push-image
-#      - aws-ecr/build_and_push_image:
-#          requires:
-#            - tests
-#          account-url: AWS_ECR_ACCOUNT_URL
-#          aws-access-key-id: AWS_ACCESS_KEY_ID
-#          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-##          create-repo: true
-#          # Name of dockerfile to use. Defaults to Dockerfile.
-#          dockerfile: Dockerfile
-#          # AWS_REGION_ENV_VAR_NAME
-#          region: AWS_DEFAULT_REGION
-#          repo: 'sample-docker-gin'
-#          tag: '$CIRCLE_SHA1'
-#  tests:
-#    jobs:
-#      - tests
+      - aws-ecs/deploy-service-update:
+          requires:
+            - ecr-build-and-push-image
+          aws-region: AWS_REGION
+          family: 'sample-docker-gin-service100'
+          cluster-name: 'sample-docker-gin-cluster10'
+          container-image-name-updates: 'container=sample-docker-gin-service100,tag=${CIRCLE_SHA1}'
 
 jobs:
   tests:
@@ -60,3 +52,10 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           extra-build-args: "--target prod"
+  ecs-deploy-service-update:
+    executor:
+      name: go
+    steps:
+      - aws-ecs/deploy-service-update:
+          repo: "sample-docker-gin"
+          tag: "${CIRCLE_SHA1},latest"
