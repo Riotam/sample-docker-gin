@@ -19,10 +19,11 @@ workflows:
             - ecr-build-and-push-image
           aws-region: AWS_REGION
           family: 'sample-docker-gin-service'
-          service-name: 'sample-docker-gin-service'
-          cluster-name: 'sample-docker-gin-cluster10'
-#          container-image-name-updates: 'container=sample-docker-gin-service100,tag=${CIRCLE_SHA1},latest'
-          container-image-name-updates: 'container=sample-docker-gin_app100,image-and-tag=420238878395.dkr.ecr.ap-northeast-1.amazonaws.com/sample-docker-gin:${CIRCLE_SHA1}'
+#          service-name: 'sample-docker-gin-service'
+          cluster-name: 'sample-docker-gin-cluster'
+#          container-image-name-updates: 'container=sample-docker-gin-service,tag=${CIRCLE_SHA1},latest'
+          container-image-name-updates: 'container=${MY_APP_PREFIX}_container,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/${MY_APP_PREFIX}:${CIRCLE_SHA1}'
+#      - aws-ecs/run-task
 
 jobs:
   tests:
