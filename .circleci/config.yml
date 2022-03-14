@@ -14,16 +14,13 @@ workflows:
     jobs:
       - tests
       - ecr-build-and-push-image
-      - aws-ecs/deploy-service-update:
-          requires:
-            - ecr-build-and-push-image
-          aws-region: AWS_REGION
-          family: 'sample-docker-gin-service'
-#          service-name: 'sample-docker-gin-service'
-          cluster-name: 'sample-docker-gin-cluster'
-#          container-image-name-updates: 'container=sample-docker-gin-service,tag=${CIRCLE_SHA1},latest'
-          container-image-name-updates: 'container=${MY_APP_PREFIX}_container,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/${MY_APP_PREFIX}:${CIRCLE_SHA1}'
-#      - aws-ecs/run-task
+#      - aws-ecs/deploy-service-update:
+#          requires:
+#            - ecr-build-and-push-image
+#          aws-region: AWS_REGION
+#          family: '${MY_APP_PREFIX}_service'
+#          cluster-name: 'sample-docker-gin-cluster'
+#          container-image-name-updates: 'container=${MY_APP_PREFIX}_container,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/${MY_APP_PREFIX}:${CIRCLE_SHA1}'
 
 jobs:
   tests:
@@ -55,10 +52,3 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           extra-build-args: "--target prod"
-#  ecs-deploy-service-update:
-#    executor:
-#      name: go
-#    steps:
-#      - aws-ecs/deploy-service-update:
-#          repo: "sample-docker-gin"
-#          tag: "${CIRCLE_SHA1},latest"
