@@ -4,11 +4,12 @@ WORKDIR /app
 
 COPY . .
 
-RUN go mod download
+RUN go mod tidy
 
-# TODO: ホットリロードで実行したい
+# ホットリロードモードで実行
+RUN go install github.com/cosmtrek/air@v1.27.3
 
-CMD ["go", "run", "main.go"]
+CMD ["air"]
 
 FROM golang:1.17 as builder
 
@@ -16,7 +17,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN go mod download
+RUN go mod tidy
 
 ARG CGO_ENABLED=0
 ARG GOOS=linux

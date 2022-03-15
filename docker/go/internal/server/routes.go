@@ -14,10 +14,10 @@ func DefineRoutes(r gin.IRouter) {
 		type res struct {
 			Status string `json:"status"`
 		}
-		r := &res{Status: "OK!!"}
+		r := &res{Status: "OK!"}
 		c.JSON(http.StatusOK, r)
 	})
 
 	// sample
-	r.GET("/sample", handler.Sample)
+	r.GET("/sample", RequirePathParamStr("sample_id"), handler.SamplesSample)
 }

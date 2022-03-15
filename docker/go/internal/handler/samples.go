@@ -1,32 +1,27 @@
 package handler
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"sample-docker-gin/internal/util"
-	"strconv"
+	"sample-docker-gin/internal/registry"
 )
 
-// Sample はスケルトンコード
-func Sample(c *gin.Context) {
+// SamplesSample はスケルトンコード
+func SamplesSample(c *gin.Context) {
 
-	// TODO: 冗長なので構造体で定義するものにしたい
-	aStr := c.Query("a")
-	bStr := c.Query("b")
+	fmt.Println("L13!!", "", "")
 
-	aInt, err := strconv.Atoi(aStr)
+	// TODO: ここでパニック起こす
+	serviceMaker := c.MustGet(registry.ServiceKey).(registry.ServiceMaker)
+	samplesService := serviceMaker.NewSamples()
+	sampleId := c.MustGet("sample_id").(int)
+
+	output, err := samplesService.GetOne(sampleId)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, err)
 		return
 	}
 
-	bInt, err := strconv.Atoi(bStr)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, err)
-		return
-	}
-
-	res := util.Sample(aInt, bInt)
-
-	c.JSON(http.StatusOK, res)
+	c.JSON(http.StatusOK, output)
 }
